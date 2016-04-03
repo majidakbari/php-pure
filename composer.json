@@ -1,0 +1,16 @@
+{
+    "name": "root/exam",
+    "authors": [
+        {
+            "name": "majidakbari",
+            "email": "majidakbariiii@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
+

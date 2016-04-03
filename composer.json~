@@ -1,0 +1,10 @@
+{
+    "name": "root/exam",
+    "authors": [
+        {
+            "name": "majidakbari",
+            "email": "majidakbariiii@gmail.com"
+        }
+    ],
+    "require": {}
+}

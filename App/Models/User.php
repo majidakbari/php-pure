@@ -1,4 +1,8 @@
 <?php
+namespace App\Models;
+
+use Exception;
+use PDO;
 
 class User extends Model
 {
@@ -8,7 +12,7 @@ class User extends Model
     {
 
 
-        $sql = "UPDATE users SET name = :name, email= :email , website=:website , gender=:gender WHERE id = :id";
+        $sql = "UPDATE `users` SET `name` = :name, `email`= :email , `website`=:website , `gender`=:gender WHERE `id` = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':email', $data['email']);
@@ -22,7 +26,11 @@ class User extends Model
     public function delete($id)
 
     {
-        $this->connection->exec("DELETE FROM users WHERE id = $id");
+
+        $sql="DELETE FROM users WHERE id=:id";
+        $stmt=$this->connection->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return ($stmt->execute());
     }
 
 
@@ -31,7 +39,7 @@ class User extends Model
         if ($this->does_Email_Exist($data['email']))
             throw new Exception('Email is already taken! please pick another one.');
 
-        $stmt = $this->connection->prepare("INSERT INTO users (name,email,website,gender) VALUES (:name, :email , :website, :gender)");
+        $stmt = $this->connection->prepare("INSERT INTO `users` (`name`,`email`,`website`,`gender`) VALUES (:name, :email , :website, :gender)");
         $stmt->execute([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -43,13 +51,11 @@ class User extends Model
     public function all()
     {
 
-        $sth = $this->connection->prepare("SELECT id,name,email,website,gender FROM users");
+        $sth = $this->connection->prepare("SELECT `id`,`name`,`email`,`website`,`gender` FROM `users`");
         $sth->execute();
 
-        $result = $sth->fetchAll();
+        return $sth->fetchAll();
 
-
-        return $result;
     }
 
 
@@ -58,7 +64,7 @@ class User extends Model
 
         $offset  = $limit * ($page - 1);
 
-        $sth = $this->connection->prepare("SELECT id,name,email,website,gender FROM users LIMIT :offset, :limit");
+        $sth = $this->connection->prepare("SELECT `id`,`name`,`email`,`website`,`gender` FROM `users` LIMIT :offset, :limit");
         $sth->bindParam(':limit', $limit, PDO::PARAM_INT);
         $sth->bindParam(':offset', $offset, PDO::PARAM_INT);
         $sth->execute();
@@ -71,7 +77,7 @@ class User extends Model
 
     public function total()
     {
-        $total  = $this->connection->query("SELECT COUNT(id) as rows FROM users")
+        $total  = $this->connection->query("SELECT COUNT(id) as rows FROM `users`")
             ->fetch(PDO::FETCH_OBJ);
 
         $total_count  = $total->rows;
@@ -84,7 +90,7 @@ class User extends Model
 
     public function does_Email_Exist($email)
     {
-        $stmt = $this->connection->prepare("SELECT * FROM users WHERE email=:email LIMIT 1");
+        $stmt = $this->connection->prepare("SELECT * FROM `users` WHERE `email`=:email LIMIT 1");
         $stmt->execute(array(':email' => $email));
 
         if ($stmt->rowCount() > 0) {
@@ -92,7 +98,6 @@ class User extends Model
         }
 
         return false;
-
-
+        
     }
 }

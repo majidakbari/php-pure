@@ -1,15 +1,15 @@
 <?php
 
+namespace App\Models;
 
-
+use PDO;
 
 abstract class Model
 {
 
     public function __construct(PDO $connection)
-        
     {
-    $this->connection=$connection;
+        $this->connection=$connection;
     }
     
         public abstract function register(array $data);
