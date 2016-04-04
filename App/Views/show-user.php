@@ -21,10 +21,10 @@
 
     <?php foreach($users as $user) :?>
         <tr>
-            <td><?= $user['name']; ?></td>
-            <td><?= $user['email']; ?></td>
-            <td><?= $user['website']; ?></td>
-            <td><?= $user['gender']; ?></td>
+            <td><?= $escape ->escape($user['name']); ?></td>
+            <td><?= $escape ->escape($user['email']); ?></td>
+            <td><?= $escape ->escape($user['website']); ?></td>
+            <td><?= $escape ->escape($user['gender']); ?></td>
             <td><a href="/update-user/<?php echo $user['id'] ?>">Update</a> <a href="/delete-user/<?php echo $user['id'] ?>"> Delete</a> </td>
         </tr>
 

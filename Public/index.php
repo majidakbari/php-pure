@@ -4,6 +4,8 @@
 use App\Models\User;
 use App\Services\Authenticator;
 use App\Services\URL;
+use App\Services\Escape;
+
 
 //Auto load using composer.json
 
@@ -42,6 +44,7 @@ $db = "exam";
 $router = new URL(include '../Routes.php');
 $auth= new Authenticator($conn);
 $user=new User($conn);
+$escape=new Escape();
 
 //find out the URI that is stored in $_SERVER['REQUEST-URI'] by the web server ( here in our exam the web server is php internal server)
 
