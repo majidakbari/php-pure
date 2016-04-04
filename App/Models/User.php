@@ -34,21 +34,26 @@ class User extends Model
     }
 
 
-    public function register(array $data)
+    public function add_user(array $data)
     {
         if ($this->is_email_valid($data['email'])) {
 
-            if ($this->does_Email_Exist($data['email']))
-                throw new Exception('Email is already taken! please pick another one.');
+            if (!$this->does_Email_Exist($data['email'])) {
 
-            $stmt = $this->connection->prepare("INSERT INTO `users` (`name`,`email`,`website`,`gender`) VALUES (:name, :email , :website, :gender)");
-            $stmt->execute([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'website' => $data['website'],
-                'gender' => $data['gender'],
-            ]);
+                $stmt = $this->connection->prepare("INSERT INTO `users` (`name`,`email`,`website`,`gender`) VALUES (:name, :email , :website, :gender)");
+                $stmt->execute([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'website' => $data['website'],
+                    'gender' => $data['gender'],
+                ]);
+            }
+            else
+            {
+                die('Email is already taken! please pick another one.');
+            }
         }
+
         else {
             die($data['email']." is not a valid email address");
         }
@@ -99,10 +104,10 @@ class User extends Model
         $stmt->execute(array(':email' => $email));
 
         if ($stmt->rowCount() > 0) {
-            return true;
+            return 1;
         }
 
-        return false;
+        return 0;
     }
 
     public function is_email_valid ($email)

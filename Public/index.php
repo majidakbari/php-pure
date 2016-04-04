@@ -89,7 +89,7 @@ switch ($action) {
             include "../App/Views/admin-register.php";
         } 
         elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $auth->register($_POST);
+            $auth->admin_register($_POST);
             $auth->login($_POST['userName'], $_POST['password']);
             $router->redirect('show-user');
         }
@@ -105,13 +105,10 @@ switch ($action) {
                 if (isset($_POST['csrf']) && $_POST['csrf'] == $_SESSION['token']) {
                     $validated_name = htmlentities($_POST['name'], ENT_QUOTES, "UTF-8");
                     $_POST['name'] = $validated_name;
-                    try {
-                        $user->register($_POST);
+                        $user->add_user($_POST);
                         $router->redirect('show-user');
                     } 
-                    catch (Exception $e) {
-                        die($e->getMessage());
-                    }
+
                 }
                 else
                 {
@@ -122,7 +119,7 @@ switch ($action) {
             {
                 $router->redirect('home');
             }
-        }
+
         break;
 
     case 'show-user':
@@ -175,4 +172,6 @@ switch ($action) {
         else {
             $router->redirect('home');
         }
+    case 'user-exist':
+        echo $user->does_Email_Exist($_GET['email']);
 }

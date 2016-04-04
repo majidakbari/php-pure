@@ -9,5 +9,6 @@ return [
     'add-user'=>'add-user',
     'show-user'=>'show-user',
     'update-user'=>'update-user',
-    'delete-user'=>'delete-user'
+    'delete-user'=>'delete-user',
+    'user-exist'=>'user-exist'
 ];

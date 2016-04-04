@@ -32,7 +32,7 @@ class Authenticator
     }
 
 
-    public function register(array $params)
+    public function admin_register(array $params)
     {
         $stmt = $this->db->prepare("INSERT INTO admins (userName,password) VALUES (:uname,:password)");
         $stmt->execute(array(':uname'=>$params['userName'], ':password'=>password_hash($params['password'],PASSWORD_BCRYPT)));
@@ -41,7 +41,6 @@ class Authenticator
     public function logout()
     {
         session_destroy();
-        header('Location: http://localhost:8080/');
-        exit();
+        
     }
 }

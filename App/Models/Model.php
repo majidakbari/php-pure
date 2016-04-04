@@ -12,7 +12,7 @@ abstract class Model
         $this->connection=$connection;
     }
     
-        public abstract function register(array $data);
+        public abstract function add_user(array $data);
         public abstract function update($id, array $data);
         public abstract function delete($id);
         public abstract function all();

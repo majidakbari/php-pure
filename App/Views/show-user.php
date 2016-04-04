@@ -9,6 +9,7 @@
 
 
 <body>
+<div class="container">
 <table class="table">
     <tr>
         <td><b>Name</b></td>
@@ -40,5 +41,6 @@ for($i=1;$i<$pages_count+1; $i++){
 ?>
 <br><a href="/admin-logout"> Admin Log out</a>
 <br><a href="/add-user"> Add user</a>
+</div>
 </body>
 </html>
