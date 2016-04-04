@@ -68,8 +68,8 @@ switch ($action) {
         elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = $auth->login($_POST['userName'], $_POST['password']);
             if ($res) {
-                echo "You are logged in successfully";
-                $router->redirect('admin-login');
+
+                $router->redirect('show-user');
             } 
             else {
                 echo "Username or password is incorrect";
@@ -80,6 +80,7 @@ switch ($action) {
 
     case 'admin-logout':
         $auth->logout();
+        $router->redirect('admin-login');
         break;
 
 
@@ -90,7 +91,7 @@ switch ($action) {
         elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $auth->register($_POST);
             $auth->login($_POST['userName'], $_POST['password']);
-            header('Location: http://localhost:8080/show-user');
+            $router->redirect('show-user');
         }
         break;
 
@@ -106,7 +107,7 @@ switch ($action) {
                     $_POST['name'] = $validated_name;
                     try {
                         $user->register($_POST);
-                        header('Location: http://localhost:8080/show-user');
+                        $router->redirect('show-user');
                     } 
                     catch (Exception $e) {
                         die($e->getMessage());
@@ -119,7 +120,7 @@ switch ($action) {
             }
             else
             {
-                header('Location: http://localhost:8080/');
+                $router->redirect('home');
             }
         }
         break;
@@ -132,7 +133,7 @@ switch ($action) {
             include "../App/Views/show-user.php";
         }
         else {
-            header('Location: http://localhost:8080/');
+            $router->redirect('home');
         }
 
     break;
@@ -154,11 +155,11 @@ switch ($action) {
             else {
                 $id = $data[2];
                 $user->update($id, $_POST);
-                header('Location: http://localhost:8080/show-user');
+                $router->redirect('show-user');
             }
         }
         else {
-            header('Location: http://localhost:8080/');
+            $router->redirect('home');
         }
         break;
 
@@ -167,11 +168,11 @@ switch ($action) {
         if (isset($_SESSION['user_session'])) {
             $id = $data[2];
             $user->delete($id);
-            header('Location: http://localhost:8080/show-user');
+            $router->redirect('show-user');
 
             break;
         }
         else {
-            header('Location: http://localhost:8080/');
+            $router->redirect('home');
         }
 }

@@ -36,18 +36,23 @@ class User extends Model
 
     public function register(array $data)
     {
-        if ($this->does_Email_Exist($data['email']))
-            throw new Exception('Email is already taken! please pick another one.');
+        if ($this->is_email_valid($data['email'])) {
 
-        $stmt = $this->connection->prepare("INSERT INTO `users` (`name`,`email`,`website`,`gender`) VALUES (:name, :email , :website, :gender)");
-        $stmt->execute([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'website' => $data['website'],
-            'gender' => $data['gender'],
-        ]);
+            if ($this->does_Email_Exist($data['email']))
+                throw new Exception('Email is already taken! please pick another one.');
+
+            $stmt = $this->connection->prepare("INSERT INTO `users` (`name`,`email`,`website`,`gender`) VALUES (:name, :email , :website, :gender)");
+            $stmt->execute([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'website' => $data['website'],
+                'gender' => $data['gender'],
+            ]);
+        }
+        else {
+            die($data['email']." is not a valid email address");
+        }
     }
-
     public function all()
     {
 
@@ -98,6 +103,16 @@ class User extends Model
         }
 
         return false;
-        
     }
+
+    public function is_email_valid ($email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            return true;
+        }
+
+    }
+
+
+
 }

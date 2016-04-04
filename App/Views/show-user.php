@@ -11,11 +11,11 @@
 <body>
 <table class="table">
     <tr>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Website</td>
-        <td>Gender</td>
-        <td>actions</td>
+        <td><b>Name</b></td>
+        <td><b>Email</b></td>
+        <td><b>Website</b></td>
+        <td><b>Gender</b></td>
+        <td><b>actions</b></td>
     </tr>
 
     <?php foreach($users as $user) :?>

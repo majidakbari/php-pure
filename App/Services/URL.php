@@ -15,9 +15,11 @@ class URL
     function redirect($route)
     {
         if(strpos($route, 'http') || strpos($route, 'www')){
-            header('Location '.$route);
-        }else{
-            header('Location '.$this->getUrl($route));
+            header('Location: '.$route);
+        }
+        else
+        {
+            header('Location: '.$this->getUrl($route));
         }
 
         die();
@@ -27,7 +29,7 @@ class URL
     function getUrl($route)
     {
         $protocol = !empty($_SERVER['HTTPS']) ? 'https' : 'http';
-        return $protocol.'://'.$_SERVER['HTTP_HOST'].':'.$_SERVER['REMOTE_PORT'].'/'.$this->routes[$route];
+        return $protocol.'://'.$_SERVER['HTTP_HOST'].'/'.$this->routes[$route];
     }
 
 }

@@ -2,7 +2,7 @@
 
 
 return [
-    ''=>'',
+    'home'=>'/',
     'admin-login'=>'admin-login',
     'admin-logout'=>'admin-logout',
     'admin-register'=>'admin-register',
