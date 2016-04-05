@@ -34,8 +34,10 @@
 
 <?php
 
+$url = $router->getUrl("show-user");
+
 for($i=1;$i<$pages_count+1; $i++){
-    echo '<a href="http://localhost:8080/show-user?page='.$i. '">'.$i.'</a>';
+    echo "<a href='$url?page=$i'>$i  </a>";
 }
 
 ?>

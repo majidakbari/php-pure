@@ -108,20 +108,20 @@ switch ($action) {
                 if (isset($_POST['csrf']) && $_POST['csrf'] == $_SESSION['token']) {
                     $validated_name = htmlentities($_POST['name'], ENT_QUOTES, "UTF-8");
                     $_POST['name'] = $validated_name;
-                        $user->add_user($_POST);
-                        $router->redirect('show-user');
-                    } 
+                    $user->add_user($_POST);
+                    $router->redirect('show-user');
+                }
 
-                }
-                else
-                {
-                    die('invalid data');
-                }
             }
             else
             {
-                $router->redirect('home');
+                die('invalid data');
             }
+        }
+        else
+        {
+            $router->redirect('home');
+        }
 
         break;
 
